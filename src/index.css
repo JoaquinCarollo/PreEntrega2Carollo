@@ -44,3 +44,29 @@
   height: 15rem;
   margin-left: 42%;
 }
+.modificadorDeCantidad {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+.modificadorDeCantidad .sumarORestarProducto button {
+  background-color: rgb(48, 48, 255);
+  color: white;
+  border-radius: 5px;
+}
+.modificadorDeCantidad .sumarORestarProducto button:hover {
+  background-color: white;
+  color: rgb(48, 48, 255);
+}
+.modificadorDeCantidad .irAlCarrito {
+  width: 15rem;
+  border-radius: 10px;
+  background-color: rgb(48, 48, 255);
+  color: white;
+}
+.modificadorDeCantidad .irAlCarrito:hover {
+  background-color: white;
+  color: rgb(48, 48, 255);
+}

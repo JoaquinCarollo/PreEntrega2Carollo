@@ -1,30 +1,24 @@
+import { Item } from "./Item";
 import { useEffect, useState } from "react";
-import {
-  getFirestore,
-  getDocs,
-  collection,
-  where,
-  query,
-} from "firebase/firestore";
+import { useParams } from "react-router-dom";
+import productos from "../data/productos.json";
 import carga from "../assets/cargando.gif";
-import { useParams, Link } from "react-router-dom";
-
-export const ItemListContainer = () => {
-  const [item, setItem] = useState([]);
+import { Link } from "react-router-dom";
+export const Item = (props) => {
+  const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   useEffect(() => {
-    const db = getFirestore();
-    const itemCollection = !id
-      ? collection(db, "Items")
-      : query(collection(db, "Items"), where("category", "==", id));
-    getDocs(itemCollection)
-      .then((snapshot) => {
-        setItem(
-          snapshot.docs.map((doc) => {
-            return { id: doc.id, ...doc.data() };
-          })
-        );
+    new Promise((resolve, reject) => {
+      setTimeout(() => resolve(productos), 2000);
+    })
+      .then((response) => {
+        if (!id) {
+          setProducts(response);
+        } else {
+          const filtered = response.filter((i) => i.category === id);
+          setProducts(filtered);
+        }
       })
       .finally(() => setLoading(false));
   }, [id]);
@@ -33,7 +27,7 @@ export const ItemListContainer = () => {
   }
   return (
     <section className="listaDeProductos">
-      {item.map((i) => (
+      {products.map((i) => (
         <div key={i.id} className="producto">
           <h3>{i.title}</h3>
           <img src={i.pictureUrl} />
